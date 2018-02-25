@@ -4,12 +4,21 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../_user_interface/_X.c \
+../_user_interface/_view_printer.c \
+../_user_interface/_views.c \
 ../_user_interface/_x_viewer.c 
 
 OBJS += \
+./_user_interface/_X.o \
+./_user_interface/_view_printer.o \
+./_user_interface/_views.o \
 ./_user_interface/_x_viewer.o 
 
 C_DEPS += \
+./_user_interface/_X.d \
+./_user_interface/_view_printer.d \
+./_user_interface/_views.d \
 ./_user_interface/_x_viewer.d 
 
 

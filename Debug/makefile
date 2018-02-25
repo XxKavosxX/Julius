@@ -102,6 +102,5 @@ clean:
 secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY) $(AVRDUDEDUMMY)
 
 .PHONY: all clean dependents
-.SECONDARY:
 
 -include ../makefile.targets
