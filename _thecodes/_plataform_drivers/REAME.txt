@@ -1,0 +1,1 @@
+This codes defines external plafatorm drivers like LCD16x2 driver, Real Time Clock and SD cards etc.

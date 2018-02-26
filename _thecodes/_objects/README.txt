@@ -1,0 +1,1 @@
+There are all abstract objects and strutures used by the Julius to manipulate information ant control external devices
