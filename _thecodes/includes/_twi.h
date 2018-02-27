@@ -7,8 +7,13 @@
 
 #ifndef THECODES_INCLUDES__TWI_H_
 #define THECODES_INCLUDES__TWI_H_
-#include "_main_routine.h"
-#include "_usart.h"
+
+#include <avr/interrupt.h>
+//#include <avr/iom328p.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <util/delay.h>
+#include <util/twi.h>
 
 #define FREQ_SCL 100000UL
 #define _send_start_cond()		TWCR |= (1<<TWSTA);
@@ -18,7 +23,7 @@
 #define ISREADY 1
 #define UNREADY 0
 
-#define _I2C_ATTEMPTS 20
+#define _I2C_MAX_ATTEMPTS 20
 #define _I2C_LCD_ADDR 32
 #define _I2C_SENS_ADDR 33
 #define _I2C_KEY_ADDR 34
