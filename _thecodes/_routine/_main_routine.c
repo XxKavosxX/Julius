@@ -6,11 +6,11 @@
  */
 #include "../includes/_main_routine.h"
 
-#include "../includes/_matrix_.h"
-#include "../includes/_sensor_matrix.h"
+#include "../includes/_device_list.h"
 #include "../includes/_DS1302.h"
 #include "../includes/_I2C_LCD16x2.h"
 #include "../includes/_keyboard.h"
+#include "../includes/_sensor_list.h"
 #include "../includes/_twi.h"
 #include "../includes/_twi.h"
 #include "../includes/_usart.h"

@@ -8,12 +8,14 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include _thecodes/_user_interface_apps/subdir.mk
+-include _thecodes/_user_interface/subdir.mk
 -include _thecodes/_routine/subdir.mk
 -include _thecodes/_plataform_drivers/RealTimeClock/subdir.mk
 -include _thecodes/_plataform_drivers/MMI/subdir.mk
 -include _thecodes/_parallel_routine/subdir.mk
+-include _thecodes/_objects/_shtdwn_queue/subdir.mk
 -include _thecodes/_objects/_sensor/subdir.mk
+-include _thecodes/_objects/_device/subdir.mk
 -include _thecodes/_objects/_date/subdir.mk
 -include _thecodes/_objects/subdir.mk
 -include _thecodes/_micro_library/subdir.mk

@@ -13,7 +13,7 @@
 
 ISR(TIMER1_OVF_vect);
 
-void timer_set_range(uint32_t tempo_em_segundos);
+void timer_alarm_clk(uint32_t tempo_em_segundos);
 void timer_start_count();
 void timer_stop_count();
 

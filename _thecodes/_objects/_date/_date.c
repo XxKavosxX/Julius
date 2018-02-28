@@ -40,17 +40,19 @@ struct Date {
 	uint8_t write_protect_bit :1;
 };
 struct Date* new_date_structure(void) {
-	struct Date* date;
-	date = calloc(1, sizeof(struct Date));
+
+	struct Date* date = calloc(1, sizeof(struct Date));
 	return date;
+
 }
 int del_date_structure(struct Date* date) {
-	if (date != NULL) {
-		free(date);
-		return 1;
-	} else {
+
+	if (date == NULL)
 		return 0;
-	}
+
+	free(date);
+	return 1;
+
 }
 void set_date_structure(struct Date* date, uint8_t seconds, uint8_t minutes, uint8_t hour,
 		uint8_t day, uint8_t month, uint8_t week_day, uint8_t year) {

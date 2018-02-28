@@ -19,7 +19,7 @@ void usart_send(unsigned char dado);
 unsigned char usart_receive();
 void usart_write(char *c);
 void usart_write_flash(const char *c);
-void number_indentify(uint8_t valor, unsigned char *disp);
+/*void number_indentify(uint8_t valor, unsigned char *disp);*/
 
 
 

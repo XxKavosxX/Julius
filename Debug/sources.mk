@@ -25,11 +25,13 @@ SUBDIRS := \
 _thecodes/_devices_drives \
 _thecodes/_micro_library \
 _thecodes/_objects/_date \
-_thecodes/_objects \
+_thecodes/_objects/_device \
 _thecodes/_objects/_sensor \
+_thecodes/_objects/_shtdwn_queue \
 _thecodes/_parallel_routine \
 _thecodes/_plataform_drivers/MMI \
 _thecodes/_plataform_drivers/RealTimeClock \
 _thecodes/_routine \
-_thecodes/_user_interface_apps \
+_thecodes/_user_interface \
+_thecodes/_objects \
 

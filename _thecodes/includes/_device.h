@@ -15,8 +15,8 @@
 #include <stdlib.h>
 
 #define VOID PSTR("-------\0")
-#define INVALID_SENS_TAG 255
-#define INVALID_CRTL_TAG 255
+#define INVALID_SENS_ID 255
+#define INVALID_CRTL_ID 255
 #define INVALID_NAME PSTR("UNKNOW NAME")
 
 struct Device;

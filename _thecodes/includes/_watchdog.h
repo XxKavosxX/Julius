@@ -15,9 +15,9 @@
 #define WTD_INT_MODE 0x04
 #define WTD_INIT_MODE 0x40
 #define WTD_INTeINIT_MODE 0x48
-void watch_dog_reset();
-void watch_dog_disable();
-_Bool watch_dog_set_prescaler(uint8_t new_prescaler, uint8_t mode);
+void watchdog_reset();
+void watchdog_disable();
+_Bool watchdog_set_prescaler(uint8_t new_prescaler, uint8_t mode);
 static _Bool test_prescaler(uint8_t prescaler);
 static _Bool test_mode(uint8_t modo);
 

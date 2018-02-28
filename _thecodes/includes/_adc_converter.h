@@ -12,17 +12,17 @@
 // #define AD_AVCC_MODE
 // #define AD_TENS_INTER_MODE
 #define AD_REF_MASK 0xC0
-void AtivarAnalog(uint8_t modo, uint8_t canal, uint8_t prescaler);
-char IniciarLeituraAnalog();
-_Bool getEstado();
+void adc_enable(uint8_t modo, uint8_t canal, uint8_t prescaler);
+char adc_read_pin();
+_Bool adc_state();
 /*    const char* ADgetInfo();*/
 
 //     uint8_t ADmodo;
 //     uint8_t ADcanal;
 //     uint8_t ADprescaler;
-_Bool ModoReferencia(uint8_t modo);
-_Bool SelecionarCanal(uint8_t canal);
-_Bool SelecionarFreqClock(uint8_t prescaler);
+_Bool setup_mode(uint8_t modo);
+_Bool select_channel(uint8_t canal);
+_Bool select_clk_freq(uint8_t prescaler);
 
 
 

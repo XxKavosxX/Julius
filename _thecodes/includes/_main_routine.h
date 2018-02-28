@@ -5,9 +5,10 @@
  *      Author: maike_rodrigo
  */
 
-#ifndef THECODES_INCLUDES__MAIN_ROUTINE_H_
-#define THECODES_INCLUDES__MAIN_ROUTINE_H_
+#ifndef MAIN_ROUTINE_H_
+#define MAIN_ROUTINE_H_
 #define F_CPU 16000000UL
+
 #include <avr/pgmspace.h>
 #include <avr/eeprom.h>
 #include <avr/io.h>
