@@ -10,17 +10,15 @@
 
 #include "_main_routine.h"
 
-#define INVALID_NAME PSTR("UNKNOW NAME")
-
 struct Sensor;
-struct Sensor* new_sensor(void);
-int del_sensor(struct Sensor* sensor);
-_Bool sensor_set_pin(struct Sensor* sensor, uint8_t pin);
-_Bool sensor_set_status(struct Sensor* sensor, uint8_t status);
-_Bool sensor_set_name(struct Sensor* sensor, char* name);
-const uint8_t sensor_get_pin(struct Sensor* sensor);
-const uint8_t sensor_get_status(struct Sensor* sensor);
-const char* sensor_get_name(struct Sensor* sensor);
+struct Sensor *new_sensor(void);
+int delete_sensor(struct Sensor *sensor);
+_Bool set_sensor_plugged_pin(struct Sensor *sensor, uint8_t pin);
+_Bool set_sensor_status(struct Sensor *sensor, uint8_t status);
+_Bool set_sensor_name(struct Sensor *sensor, char *name);
+const uint8_t get_sensor_plugged_pin(struct Sensor *sensor);
+const uint8_t get_sensor_status(struct Sensor *sensor);
+const char *get_sensor_name(struct Sensor *sensor);
 
 
 #endif /* OBJECTS__SENSOR_H_ */

@@ -6,39 +6,39 @@
  */
 #include "../../includes/_shutdown_queue.h"
 
-struct Shuwtdown_queue {
+uint8_t QUEUE_MAX_SIZE = 0;
 
-	uint8_t initial_time;
-	uint8_t timeout;
-	uint8_t control_ID;
-	uint8_t sensor_ID;
-	char* name;
-	/*uint8_t status;*/
+static struct Shutdown_task *first_task = NULL;
+static struct Shutdown_task *last_task = NULL;
+static struct Shutdown_task *previous_task = NULL;
+
+struct Shutdown_task {
+	uint8_t time_to_shutdown_in_sec;
+	struct Device_list_node *device;
+	struct Shutdown_task *_next_element;
 };
-struct Shuwtdown_queue* new_task(struct Device* device, uint8_t init_time) {
+struct Shutdown_task *new_shutdown_task(
+		struct Device_list_node *node_device_to_shutdown, uint8_t time_of_entry) {
 
-	struct Shuwtdown_queue* task;
-	task = malloc(sizeof(struct Shuwtdown_queue));
-
-	if (task == NULL)
+	if (node_device_to_shutdown == NULL)
 		return NULL;
 
-	task->initial_time = init_time;
-	task->timeout = device_get_timeout(device);
+	struct Shutdown_task* new_node_task = calloc(1,
+			sizeof(struct Shutdown_task));
 
-	task->control_ID = device_get_control_tag(device);
-	task->sensor_ID = device_get_sensor_tag(device);
+	if (new_node_task == NULL)
+		return NULL;
 
-	task->name = device_get_name(device);
-	//task->status = OUTQEUE;
+	new_node_task->time_to_shutdown_in_sec = time_of_entry
+			- get_device_shutdown_wait(
+					get_node_device(node_device_to_shutdown));
+	new_node_task->device = node_device_to_shutdown;
+	new_node_task->_next_element = NULL;
 
-	return task;
+	return new_node_task;
 
 }
-
-
-
-int abort_task(struct Shuwtdown_queue* task) {
+int delete_shutdown_task(struct Shutdown_task *task) {
 
 	if (task == NULL)
 		return 0;
@@ -47,20 +47,58 @@ int abort_task(struct Shuwtdown_queue* task) {
 	return 1;
 
 }
+_Bool begin_shutdown_queue(struct Device_list_node *device_to_shutdown,
+		uint8_t time_of_entry) {
 
-const uint8_t task_get_init_time(struct Shuwtdown_queue* task) {
-	return task->initial_time;
-}
+	if ((first_task != NULL) || (device_to_shutdown == NULL))
+		return 0;
 
-const uint8_t task_get_timeout(struct Shuwtdown_queue* task) {
-	return task->timeout;
+	first_task = new_shutdown_task(device_to_shutdown, time_of_entry);
+	last_task = first_task;
+	QUEUE_MAX_SIZE++;
+	return 1;
 }
-const uint8_t task_get_crtlID(struct Shuwtdown_queue* task) {
-	return task->control_ID;
-}
-const uint8_t task_get_sensID(struct Shuwtdown_queue* task) {
-	return task->sensor_ID;
-}
-const char* task_get_name(struct Shuwtdown_queue* task) {
-	return task->name;
-}
+/*_Bool task_append(struct Device* device_to_shutdown, uint8_t time_of_entry) {
+ if (device_to_shutdown == 0)
+ return 0;
+
+ struct Shutdown_task *task_to_append = new_shutdown_task(device_to_shutdown,
+ time_of_entry);
+
+ if (task_to_append == NULL
+ || task_search(get_device_sensor_id(device_to_shutdown),
+ get_device_control_id(device_to_shutdown)) != NULL)
+ return 0;
+
+ //last_task-> continue...
+ }
+ _Bool task_remove(struct Device* device_to_shutdown) {
+ return 0;
+ }
+
+
+ void sort_shutdown_qeue() {
+ uint8_t i = 0, j = 0;
+ for (i = 0; i < (QUEUE_MAX_SIZE - 1); i++) {
+ for (j = i; j < QUEUE_MAX_SIZE; j++) {
+
+ }
+
+ }
+ }
+ struct Shutdown_task* task_search(uint8_t sensor, uint8_t control) {
+
+ }*/
+
+/*const uint8_t task_get_timeout(struct Shutdown_task* task) {
+ return task->timeout_in_seconds;
+ }
+ const uint8_t task_get_control_id(struct Shutdown_task* task) {
+ return task->control_id;
+ }
+ const uint8_t task_get_sensor_id(struct Shutdown_task* task) {
+ return task->sensor_id;
+ }
+ const char* task_get_name(struct Shutdown_task* task) {
+ return task->name;
+ }*/

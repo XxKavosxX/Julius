@@ -17,7 +17,6 @@ RM := rm -rf
 -include _thecodes/_objects/_sensor/subdir.mk
 -include _thecodes/_objects/_device/subdir.mk
 -include _thecodes/_objects/_date/subdir.mk
--include _thecodes/_objects/subdir.mk
 -include _thecodes/_micro_library/subdir.mk
 -include _thecodes/_devices_drives/subdir.mk
 -include subdir.mk

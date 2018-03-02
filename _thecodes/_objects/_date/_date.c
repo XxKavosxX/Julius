@@ -41,11 +41,11 @@ struct Date {
 };
 struct Date* new_date_structure(void) {
 
-	struct Date* date = calloc(1, sizeof(struct Date));
+	struct Date *date = calloc(1, sizeof(struct Date));
 	return date;
 
 }
-int del_date_structure(struct Date* date) {
+int del_date_structure(struct Date *date) {
 
 	if (date == NULL)
 		return 0;
@@ -54,7 +54,7 @@ int del_date_structure(struct Date* date) {
 	return 1;
 
 }
-void set_date_structure(struct Date* date, uint8_t seconds, uint8_t minutes, uint8_t hour,
+void set_date_structure(struct Date *date, uint8_t seconds, uint8_t minutes, uint8_t hour,
 		uint8_t day, uint8_t month, uint8_t week_day, uint8_t year) {
 
 		//First byte
@@ -88,7 +88,7 @@ void set_date_structure(struct Date* date, uint8_t seconds, uint8_t minutes, uin
 		date->write_protect_bit = 0;
 
 }
-uint8_t* get_date_structure(struct Date* date) {
+uint8_t* get_date_structure(struct Date *date) {
 	memset(atual_data, 0, 8);
 	memcpy(atual_data, date, 8);
 	return atual_data;

@@ -9,18 +9,18 @@
 
 struct Sensor {
 
-	uint8_t pin :7;
+	uint8_t plugged_pin :7;
 	uint8_t status :1;
 	const char* name;
 };
 
-struct Sensor* new_sensor(void) {
+struct Sensor *new_sensor(void) {
 
-	struct Sensor* sensor = malloc(sizeof(struct Sensor));
+	struct Sensor *sensor = malloc(sizeof(struct Sensor));
 	return sensor;
 
 }
-int del_sensor(struct Sensor* sensor) {
+int delete_sensor(struct Sensor *sensor) {
 
 	if (sensor == NULL)
 		return 0;
@@ -29,16 +29,16 @@ int del_sensor(struct Sensor* sensor) {
 	return 1;
 
 }
-_Bool sensor_set_pin(struct Sensor* sensor, uint8_t pin) {
+_Bool set_sensor_plugged_pin(struct Sensor *sensor, uint8_t pin) {
 
 	if (sensor == NULL)
 		return 0;
 
-	sensor->pin = pin;
+	sensor->plugged_pin = pin;
 	return 1;
 
 }
-_Bool sensor_set_status(struct Sensor* sensor, uint8_t status) {
+_Bool set_sensor_status(struct Sensor *sensor, uint8_t status) {
 
 	if (sensor == NULL)
 		return 0;
@@ -46,22 +46,22 @@ _Bool sensor_set_status(struct Sensor* sensor, uint8_t status) {
 	sensor->status = status;
 	return 1;
 }
-_Bool sensor_set_name(struct Sensor* sensor, char* name) {
+_Bool set_sensor_name(struct Sensor *sensor, char *name) {
 	if (sensor == NULL)
 		return 0;
 
 	sensor->name = name;
 	return 1;
 }
-const uint8_t sensor_get_pin(struct Sensor* sensor) {
+const uint8_t get_sensor_plugged_pin(struct Sensor *sensor) {
 
 	if (sensor == NULL)
 		return 0;
 
-	return sensor->pin;
+	return sensor->plugged_pin;
 
 }
-const uint8_t sensor_get_status(struct Sensor* sensor) {
+const uint8_t get_sensor_status(struct Sensor *sensor) {
 
 	if (sensor == NULL)
 		return 0;
@@ -69,10 +69,10 @@ const uint8_t sensor_get_status(struct Sensor* sensor) {
 	return sensor->status;
 
 }
-const char* sensor_get_name(struct Sensor* sensor) {
+const char *get_sensor_name(struct Sensor *sensor) {
 
 	if (sensor == NULL)
-		return INVALID_NAME;
+		return '\0';
 
 	return sensor->name;
 

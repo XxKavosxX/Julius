@@ -48,13 +48,13 @@ _Bool eeprom_save_device(struct Device* new_device) {
 		ACK_RMV_STR_LEN); 					//First write ACK in EEPROM
 
 		eeprom_write_byte((uint8_t*) (_next_free_mem_pos + ACK_RMV_STR_LEN),
-				device_get_timeout(new_device)); //timeout : (uint16_t*) (example + 30) In this case don't forget to use parentheses
+				get_device_shutdown_wait(new_device)); //timeout : (uint16_t*) (example + 30) In this case don't forget to use parentheses
 
 		eeprom_write_byte((uint8_t*) _next_free_mem_pos + 9,
-				device_get_control_tag(new_device));			//control_tag
+				get_device_control_id(new_device));			//control_tag
 
 		eeprom_write_byte((uint8_t*) _next_free_mem_pos + 10,
-				device_get_sensor_tag(new_device));				//sensor_tag
+				get_device_sensor_id(new_device));				//sensor_tag
 
 		eeprom_write_block(device_get_name(new_device),
 				(uint8_t*) _next_free_mem_pos + 11, 16);
@@ -118,11 +118,11 @@ _Bool eeprom_update_device(const char* device_name,
 		if (strncmp(aux_name_str, device_name, NAME_LENGTH) == 0) {
 
 			eeprom_update_byte((uint8_t*) aux_data_addr + ACK_RMV_STR_LEN + 1,
-					device_get_timeout(device_updated));
+					get_device_shutdown_wait(device_updated));
 			eeprom_update_byte((uint8_t*) aux_data_addr + ACK_RMV_STR_LEN + 2,
-					device_get_control_tag(device_updated));
+					get_device_control_id(device_updated));
 			eeprom_update_byte((uint8_t*) aux_data_addr + ACK_RMV_STR_LEN + 3,
-					device_get_sensor_tag(device_updated));
+					get_device_sensor_id(device_updated));
 			eeprom_update_block(device_get_name(device_updated),
 					(uint8_t*) aux_data_addr + ACK_RMV_STR_LEN + 4,
 					NAME_LENGTH);
@@ -160,16 +160,16 @@ struct Device* eeprom_find_by_name(const char* name) {
 			struct Device* found_device;
 			found_device = new_device();
 
-			device_set_timeout(found_device,
+			set_device_shutdown_wait(found_device,
 					eeprom_read_byte(
 							(uint8_t*) (aux_data_addr + ACK_RMV_STR_LEN) + 1));
-			device_set_control_tag(found_device,
+			set_device_control_id(found_device,
 					eeprom_read_byte(
 							(uint8_t*) (aux_data_addr + ACK_RMV_STR_LEN + 2)));
-			device_set_sensor_tag(found_device,
+			set_device_sensor_id(found_device,
 					eeprom_read_byte(
 							(uint8_t*) (aux_data_addr + ACK_RMV_STR_LEN + 3)));
-			device_set_name(found_device,
+			set_device_name(found_device,
 					eeprom_read_byte(
 							(uint8_t*) (aux_data_addr + ACK_RMV_STR_LEN + 4)));
 			device_set_consumption(found_device,
@@ -194,16 +194,16 @@ struct Device* eeprom_find_by_address(uint16_t device_addr) {
 		struct Device* found_device;
 		found_device = new_device();
 
-		device_set_timeout(found_device,
+		set_device_shutdown_wait(found_device,
 				eeprom_read_byte(
 						(uint8_t*) (device_addr + ACK_RMV_STR_LEN) + 1));
-		device_set_control_tag(found_device,
+		set_device_control_id(found_device,
 				eeprom_read_byte(
 						(uint8_t*) (device_addr + ACK_RMV_STR_LEN + 2)));
-		device_set_sensor_tag(found_device,
+		set_device_sensor_id(found_device,
 				eeprom_read_byte(
 						(uint8_t*) (device_addr + ACK_RMV_STR_LEN + 3)));
-		device_set_name(found_device, (char*)
+		set_device_name(found_device, (char*)
 				eeprom_read_byte(
 						(uint8_t*) (device_addr + ACK_RMV_STR_LEN + 4)));
 		device_set_consumption(found_device,

@@ -10,17 +10,12 @@
 #include "_sensor.h"
 #include "_usart.h"
 
-#define NUM_SENSORS 15
-
-struct Node_sens {
-	struct Sensor *content;
-	struct Node_sens *_next_unit;
-};
-struct Node_sens* node_get_first();
-struct Node_sens* new_sens_node(struct Sensor* content);
-_Bool sens_list_begin(struct Sensor* content);
-_Bool sens_append(struct Sensor* content);
-_Bool sens_delete(struct Sensor* content);
-struct Node_sens* sens_search(uint8_t pin);
+struct Sensor_list_node;
+struct Sensor_list_node *new_sensor_list_node(struct Sensor *sensor);
+int delete_sensor_list_node(struct Sensor_list_node *sensor_list_node);
+_Bool begin_sensor(struct Sensor *sensor);
+_Bool append_sensor(struct Sensor *sensor);
+_Bool remove_sensor(struct Sensor *sensor);
+struct Sensor_list_node *search_sensor(uint8_t pin);
 
 #endif /* SENSOR_MATRIX_H_ */

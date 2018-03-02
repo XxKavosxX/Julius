@@ -8,8 +8,8 @@
 #ifndef SHUTDOWN_QUEUE_H_
 #define SHUTDOWN_QUEUE_H_
 
-#include "_device_list.h"
 
+#include "_device_list.h"
 
 #define INSTANCIADO   PSTR("IDLE")
 #define REMOVIDO      PSTR("REMOVED")
@@ -17,24 +17,23 @@
 #define OUTQEUE       0
 #define CONECTED     3
 
-struct Shuwtdown_queue;
-struct Shuwtdown_queue* new_task(struct Device* device, uint8_t init_time);
-int abort_task(struct Shuwtdown_queue* task);
 
-//-----------------------------------------------------------------------------//
-//Setters functions                                               		//     	|
-_Bool task_set_timeout(struct Shuwtdown_queue* task, uint8_t timeout);				//		|
-//-----------------------------------------------------------------------------//
-//Getters functions                                               		//     	|
-const uint8_t task_get_init_time(struct Shuwtdown_queue* task);					//		|
-const uint8_t task_get_timeout(struct Shuwtdown_queue* task);						//		|
-const uint8_t task_get_crtlID(struct Shuwtdown_queue* task);					//		|
-const uint8_t task_get_sensID(struct Shuwtdown_queue* task);					//		|
-const char* task_get_name(struct Shuwtdown_queue* task);							//		|
-const uint8_t task_get_status(struct Shuwtdown_queue* task);						//		|
-//																				|
-//------------------------------------------------------------------------------//
+struct Shutdown_task;
+struct Shutdown_task *new_shutdown_task(struct Device_list_node *device_to_shutdown,
+		uint8_t time_of_entry);
+int delete_shutdown_task(struct Shutdown_task *task);
 
+_Bool begin_shutdown_queue(struct Device_list_node *device_to_shutdown, uint8_t time_of_entry);
+
+_Bool task_append(struct Device *device_to_shutdown, uint8_t time_of_entry);
+_Bool task_remove(struct Device *device_to_shutdown);
+struct Shutdown_task *task_search(uint8_t sensor, uint8_t control);
+void sort_shutdown_qeue();
+const uint8_t task_get_timeout(struct Shutdown_task *task);
+const uint8_t task_get_control_id(struct Shutdown_task *task);
+const uint8_t task_get_sensor_id(struct Shutdown_task *task);
+const char *task_get_name(struct Shutdown_task *task);
+struct Device *get_node_device(struct Device_list_node *node);
 
 
 

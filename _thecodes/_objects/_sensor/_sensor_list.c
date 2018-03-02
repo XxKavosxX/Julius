@@ -7,132 +7,135 @@
 
 #include "../../includes/_sensor_list.h"
 
-uint8_t LIST_SIZE;
-uint8_t ATTEMPTS = 0;
+uint8_t SENSOR_LIST_SIZE;
 
-static struct Node_sens* first_sens = NULL;
-static struct Node_sens* last_sens = NULL;
-static struct Node_sens* previous_sens = NULL;
+static struct Sensor_list_node *first_sensor = NULL;
+static struct Sensor_list_node *last_sensor = NULL;
+static struct Sensor_list_node *previous_sensor = NULL;
 
-struct Node_sens* new_sens_node(struct Sensor* sens) {
+struct Sensor_list_node {
+	struct Sensor *node_sensor;
+	struct Sensor_list_node *next_node;
+};
+struct Sensor_list_node *new_sensor_list_node(struct Sensor *sensor) {
 
-	if (sens == NULL)
+	if (sensor == NULL)
 		return NULL;
 
-	struct Node_sens* new_node_sens = calloc(1, sizeof(struct Node_sens));
+	struct Sensor_list_node *new_node_sensor = calloc(1, sizeof(struct Sensor_list_node));
 
-	if (new_node_sens == NULL)
+	if (new_node_sensor == NULL)
 		return NULL;
 
-	new_node_sens->content = sens;
-	new_node_sens->_next_unit = NULL;
-	return new_node_sens;
+	new_node_sensor->node_sensor = sensor;
+	new_node_sensor->next_node = NULL;
+	return new_node_sensor;
 
 }
-int del_sens_node(struct Node_sens* sens) {
+int delete_sensor_list_node(struct Sensor_list_node *sensor_list_node) {
 
-	if (sens == NULL)
+	if (sensor_list_node == NULL)
 		return 0;
 
-	if (sens->content == NULL)
+	if (sensor_list_node->node_sensor == NULL)
 		return 0;
 
-	free(sens->content);
-	free(sens);
+	free(sensor_list_node->node_sensor);
+	free(sensor_list_node);
 	return 1;
 
 }
 
-_Bool sens_list_begin(struct Sensor* sens) {
+_Bool begin_sensor(struct Sensor *sensor) {
 
-	if (first_sens != NULL || sens == NULL)
+	if (first_sensor != NULL || sensor == NULL)
 		return 0;
 
-	first_sens = new_sens_node(sens);
-	last_sens = first_sens;
-	LIST_SIZE = 1;
+	first_sensor = new_sensor_list_node(sensor);
+	last_sensor = first_sensor;
+	SENSOR_LIST_SIZE = 1;
 	return 1;
 
 }
-_Bool sens_append(struct Sensor* sens) {
+_Bool append_sensor(struct Sensor *sensor) {
 
-	if (first_sens == NULL || sens == NULL)
+	if (first_sensor == NULL || sensor == NULL)
 		return 0;
 
-	struct Node_sens* sens_to_append = new_sens_node(sens);
+	struct Sensor_list_node *sensor_to_append = new_sensor_list_node(sensor);
 
-	if (sens_to_append == NULL || sens_search(sensor_get_pin(sens)) != NULL)
+	if (sensor_to_append == NULL || search_sensor(get_sensor_plugged_pin(sensor)) != NULL)
 		return 0;
 
-	last_sens->_next_unit = sens_to_append;
-	last_sens = sens_to_append;
-	LIST_SIZE++;
+	last_sensor->next_node = sensor_to_append;
+	last_sensor = sensor_to_append;
+	SENSOR_LIST_SIZE++;
 	return 1;
 
 }
-_Bool sens_delete(struct Sensor* sens) {
+_Bool remove_sensor(struct Sensor *sensor) {
 
-	if (sens == NULL)
+	if (sensor == NULL)
 		return 0;
 
-	struct Node_sens* sens_to_delete = sens_search(sensor_get_pin(sens));
-	if (sens_to_delete == NULL) {
+	struct Sensor_list_node *sensor_to_remove = search_sensor(get_sensor_plugged_pin(sensor));
+	if (sensor_to_remove == NULL) {
 
 		return 0;
 
-	} else if (first_sens == sens_to_delete) {
+	} else if (first_sensor == sensor_to_remove) {
 
-		struct Node_sens* old_first = first_sens->_next_unit;
-		first_sens->_next_unit = old_first->_next_unit;
+		struct Sensor_list_node *old_first = first_sensor->next_node;
+		first_sensor->next_node = old_first->next_node;
 
-		if (!del_sens_node(first_sens))
+		if (!delete_sensor_list_node(first_sensor))
 			return 0;
 
-		first_sens = old_first;
+		first_sensor = old_first;
 		return 1;
 
-	} else if (last_sens == sens_to_delete) {
+	} else if (last_sensor == sensor_to_remove) {
 
-		if (!del_sens_node(previous_sens->_next_unit))
+		if (!delete_sensor_list_node(previous_sensor->next_node))
 			return 0;
 
-		previous_sens->_next_unit = NULL;
+		previous_sensor->next_node = NULL;
 		return 1;
 
 	} else {
 
-		previous_sens->_next_unit = sens_to_delete->_next_unit;
+		previous_sensor->next_node = sensor_to_remove->next_node;
 		return 1;
 	}
 
 }
 
-struct Node_sens* sens_search(uint8_t pin) {
+struct Sensor_list_node *search_sensor(uint8_t pin) {
 
-	if ((first_sens == NULL) && (pin < 0))
+	if ((first_sensor == NULL) && (pin < 0))
 		return 0;
 
-	struct Node_sens* aux = first_sens;
-	previous_sens = first_sens;
+	struct Sensor_list_node *aux_sensor_node = first_sensor;
+	previous_sensor = first_sensor;
 
-	ATTEMPTS = 0;
+	uint8_t counter=0;
 
-	while ((ATTEMPTS <= NUM_SENSORS) && (aux != NULL)) {
+	while ((counter <= SENSOR_LIST_SIZE) && (aux_sensor_node != NULL)) {
 
-		if (sensor_get_pin(aux->content) == pin) {
+		if (get_sensor_plugged_pin(aux_sensor_node->node_sensor) == pin) {
 
-			ATTEMPTS = 0;
-			return aux;
+			counter = 0;
+			return aux_sensor_node;
 
 		} else {
 
-			previous_sens = aux;
-			aux = aux->_next_unit;
+			previous_sensor = aux_sensor_node;
+			aux_sensor_node = aux_sensor_node->next_node;
 
 
 		}
 
-		ATTEMPTS++;
+		counter++;
 	}
 
 	return NULL;

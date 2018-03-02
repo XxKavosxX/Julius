@@ -33,5 +33,4 @@ _thecodes/_plataform_drivers/MMI \
 _thecodes/_plataform_drivers/RealTimeClock \
 _thecodes/_routine \
 _thecodes/_user_interface \
-_thecodes/_objects \
 

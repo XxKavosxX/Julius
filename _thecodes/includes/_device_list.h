@@ -8,21 +8,13 @@
 #ifndef DEVICE_LIST_H_
 #define DEVICE_LIST_H_
 #include "../includes/_device.h"
-#include "../includes/_usart.h"
 
-#define NUM_DEVICES 30
-
-struct Node_device {
-	struct Device *content;
-	struct Node_device *_next_element;
-};
-struct Node_device* element_get_first();
-struct Node_device* new_element(struct Device* content);
-_Bool device_list_begin(struct Device* content);
-_Bool device_append(struct Device* content);
-_Bool device_delete(struct Device* content);
-struct Node_device* device_search(uint8_t sensor,
+struct Device_list_node;
+struct Device_list_node *new_device_list_node(struct Device *device);
+int delete_device_list_node(struct Device_list_node *device_list_node);
+_Bool begin_device_list(struct Device *device);
+_Bool append_device(struct Device *device);
+_Bool remove_device(struct Device *device);
+struct Device_list_node *search_device(uint8_t sensor,
 		uint8_t control);
-void element_print_list();
-void element_print(struct Node_device* element);
 #endif /* MATRIX__H_ */

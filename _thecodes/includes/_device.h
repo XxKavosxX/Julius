@@ -8,36 +8,26 @@
 #ifndef THECODES_INCLUDES__DEVICE_H_
 #define THECODES_INCLUDES__DEVICE_H_
 
-#include <inttypes.h>
-#include <string.h>
-#include <stdio.h>
-#include <avr/pgmspace.h>
-#include <stdlib.h>
+#include "_main_routine.h"
 
 #define VOID PSTR("-------\0")
 #define INVALID_SENS_ID 255
 #define INVALID_CRTL_ID 255
-#define INVALID_NAME PSTR("UNKNOW NAME")
 
 struct Device;
-struct Device* new_device(void);
-int del_device(struct Device* device);
+struct Device *new_device(void);
+int delete_device(struct Device *device);
+_Bool set_device_shutdown_wait(struct Device *device, uint8_t timeout);
+_Bool set_device_control_id(struct Device *device, uint8_t control_tag);
+_Bool set_device_sensor_id(struct Device *device, uint8_t sensor_tag);
+_Bool set_device_name(struct Device *device, char *name);
+_Bool device_set_consumption(struct Device *device, unsigned int consumption);
+const uint8_t get_device_shutdown_wait(struct Device *device);
+const uint8_t get_device_control_id(struct Device *device);
+const uint8_t get_device_sensor_id(struct Device *device);
+const char *device_get_name(struct Device *device);
+const unsigned int device_get_consumption(struct Device *device);
 
-//-----------------------------------------------------------------------------//
-//Setters functions                                               		//     	|
-_Bool device_set_timeout(struct Device* device, uint8_t timeout);  		//		|
-_Bool device_set_control_tag(struct Device* device, uint8_t control_tag); //		|
-_Bool device_set_sensor_tag(struct Device* device, uint8_t sensor_tag);	//		|
-_Bool device_set_name(struct Device* device, char* name);				// 		|
-_Bool device_set_consumption(struct Device* device, unsigned int consumption);	//		|
-//------------------------------------------------------------------------------//
-//Getters functions										//						|
-const uint8_t device_get_timeout(struct Device* device);		//						|
-const uint8_t device_get_control_tag(struct Device* device);	//						|
-const uint8_t device_get_sensor_tag(struct Device* device);		//						|
-const char* device_get_name(struct Device* device);			//						|
-const unsigned int device_get_consumption(struct Device* device);		//						|
-//-----------------------------------------------------------------------------//
 
 
 
