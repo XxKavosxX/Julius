@@ -113,7 +113,7 @@ _Bool remove_sensor(struct Sensor *sensor) {
 struct Sensor_list_node *search_sensor(uint8_t pin) {
 
 	if ((first_sensor == NULL) && (pin < 0))
-		return 0;
+		return NULL;
 
 	struct Sensor_list_node *aux_sensor_node = first_sensor;
 	previous_sensor = first_sensor;

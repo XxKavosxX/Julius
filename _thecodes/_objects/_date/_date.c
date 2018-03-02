@@ -39,13 +39,13 @@ struct Date {
 	uint8_t unnused6 :7;
 	uint8_t write_protect_bit :1;
 };
-struct Date* new_date_structure(void) {
+struct Date* new_date(void) {
 
 	struct Date *date = calloc(1, sizeof(struct Date));
 	return date;
 
 }
-int del_date_structure(struct Date *date) {
+int delete_date(struct Date *date) {
 
 	if (date == NULL)
 		return 0;
@@ -54,14 +54,14 @@ int del_date_structure(struct Date *date) {
 	return 1;
 
 }
-void set_date_structure(struct Date *date, uint8_t seconds, uint8_t minutes, uint8_t hour,
+void setup_date(struct Date *date, uint8_t seconds, uint8_t minutes, uint8_t hour,
 		uint8_t day, uint8_t month, uint8_t week_day, uint8_t year) {
 
 		//First byte
 		date->seconds_low = _bin_to_bcd_low(seconds);
 		date->seconds_high = _bin_to_bcd_high(seconds);
 		date->clock_halt_frag = 0;
-		//Second byte
+		//Second byteuint8_t current_time
 		date->minutes_low = _bin_to_bcd_low(minutes);
 		date->minutes_high = _bin_to_bcd_high(minutes);
 
@@ -77,7 +77,7 @@ void set_date_structure(struct Date *date, uint8_t seconds, uint8_t minutes, uin
 		date->month_low = _bin_to_bcd_low(month);
 		date->month_high = _bin_to_bcd_high(month);
 
-		//Sixth
+		//Sixthuint8_t current_time
 		date->week_day = _bin_to_bcd_low(week_day);
 
 		//Seventh
@@ -88,7 +88,7 @@ void set_date_structure(struct Date *date, uint8_t seconds, uint8_t minutes, uin
 		date->write_protect_bit = 0;
 
 }
-uint8_t* get_date_structure(struct Date *date) {
+uint8_t* date_to_array(struct Date *date) {
 	memset(atual_data, 0, 8);
 	memcpy(atual_data, date, 8);
 	return atual_data;

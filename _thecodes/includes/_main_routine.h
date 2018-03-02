@@ -47,9 +47,9 @@ void  _device_resizable_list_test();
 
 
 
-char *FloatParaChar(char *buffer, double d, int precision);
-char* InteiroParaChar(int numero);
-char* LongParaChar(uint32_t numero);
+char *float2char(char *buffer, double d, int precision);
+char* int2char(int numero);
+char* long2char(uint32_t numero);
 
 
 

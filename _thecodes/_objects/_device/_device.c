@@ -12,7 +12,7 @@
 
 struct Device {
 
-	uint8_t shutdown_wait_in_seconds;
+	uint8_t delay_to_turn_off;
 	uint8_t control_id;
 	uint8_t sensor_id;
 	char *name;
@@ -33,12 +33,12 @@ int delete_device(struct Device *device) {
 	return 1;
 
 }
-_Bool set_device_shutdown_wait(struct Device *device, uint8_t shutdown_wait) {
+_Bool set_device_shutdown_wait(struct Device *device, uint8_t seconds) {
 
 	if (device == NULL)
 		return 0;
 
-	device->shutdown_wait_in_seconds = shutdown_wait;
+	device->delay_to_turn_off = seconds;
 	return 1;
 
 }
@@ -61,7 +61,7 @@ _Bool set_device_sensor_id(struct Device* device, uint8_t sensor_id) {
 
 }
 //Make sure string name is less than 13
-_Bool set_device_name(struct Device *device, char *name) {
+_Bool set_device_name(struct Device *device, uint8_t *name) {
 
 	if ((device == NULL) || (name == NULL))
 		return 0;
@@ -70,7 +70,7 @@ _Bool set_device_name(struct Device *device, char *name) {
 	return 1;
 
 }
-_Bool device_set_consumption(struct Device *device, unsigned int consumption) {
+_Bool set_device_consumption(struct Device *device, unsigned int consumption) {
 
 	if (device == NULL)
 		return 0;
@@ -84,7 +84,7 @@ const uint8_t get_device_shutdown_wait(struct Device *device) {
 	if (device == NULL)
 		return 0;
 
-	return device->shutdown_wait_in_seconds;
+	return device->delay_to_turn_off;
 
 }
 const uint8_t get_device_control_id(struct Device *device) {
@@ -110,7 +110,7 @@ const char *device_get_name(struct Device *device) {
 	return device->name;
 
 }
-const unsigned int device_get_consumption(struct Device *device) {
+const unsigned int get_device_consumption(struct Device *device) {
 
 	if (device == NULL)
 		return 0;

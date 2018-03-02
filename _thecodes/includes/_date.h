@@ -24,10 +24,9 @@
 
 
 struct Date;
-struct Date* new_date_structure(void);
-int del_date_structure(struct Date* date);
-void set_date_structure(struct Date* date, uint8_t seconds, uint8_t minutes, uint8_t hour,
+struct Date* new_date(void);
+int delete_date(struct Date* date);
+void setup_date(struct Date* date, uint8_t seconds, uint8_t minutes, uint8_t hour,
 		uint8_t day, uint8_t month, uint8_t week_day, uint8_t year);
-uint8_t* get_date_structure(struct Date* date);
-void print();
+uint8_t* date_to_array(struct Date* date);
 #endif /* THECODES_INCLUDES__DATE_H_ */

@@ -15,6 +15,7 @@ int delete_device_list_node(struct Device_list_node *device_list_node);
 _Bool begin_device_list(struct Device *device);
 _Bool append_device(struct Device *device);
 _Bool remove_device(struct Device *device);
-struct Device_list_node *search_device(uint8_t sensor,
-		uint8_t control);
+struct Device_list_node *search_device(uint8_t sensor, uint8_t control);
+void sort_shutdown_qeue();
+struct Device *get_node_device(struct Device_list_node *node);
 #endif /* MATRIX__H_ */

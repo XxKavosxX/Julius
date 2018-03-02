@@ -17,13 +17,14 @@
 #include "../includes/_x_viewer.h"
 
 #define INIT_MODULOS 0
-#define CARR_DADOS 1
-#define DADOS_CARREGADOS 2
-#define PRONTO 3
-#define OPERANDO 4
-#define EXECUTAR_DESLIGAMENTO 5
+#define LOAD_DATA 1
+#define LEADED_DATA 2
+#define READY 3
+#define BUSY 4
+#define EXEC_POWER_OFF 5
 
-char ESTADO_ATUAL = INIT_MODULOS;
+char CURRENT_STATE = INIT_MODULOS;
+
 int main() {
 	start_tools();
 	while (1) {
@@ -137,7 +138,7 @@ void start_tools() {
 	twi_enable_pull_ups();
 	twi_enable();
 	lcd_start();
-	initialize_DS1302();
+	initialize_ds1302();
 	key_int_setup(1);
 	key_int_status(1);
 	View();
@@ -145,10 +146,10 @@ void start_tools() {
 	//read_RTC();
 }
 
-void CalcularConsumo(char sensorCorrenteEnd) {
+void get_consumption(char sensorCorrenteEnd) {
 
 }
-char *FloatParaChar(char *buffer, double d, int precision) {
+char *float2char(char *buffer, double d, int precision) {
 	long wholePart = (long) d;
 	itoa(wholePart, buffer, 10);
 	if (precision > 0) {
@@ -172,12 +173,12 @@ char *FloatParaChar(char *buffer, double d, int precision) {
 	}
 	return buffer;
 }
-char* InteiroParaChar(int numero) {
+char* int2char(int numero) {
 	static char buffer[10];
 	itoa(numero, buffer, 10);
 	return buffer;
 }
-char* LongParaChar(uint32_t numero) {
+char* long2char(uint32_t numero) {
 	static char buffer[10];
 	utoa(numero, buffer, 10);
 	return buffer;
